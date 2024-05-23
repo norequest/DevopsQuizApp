@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  quizapp:
+    image: quizapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MSSQL_SA_PASSWORD=Password1*
+      - MSSQL_HOST=localhost
+
+    ports:
+      - "5000:8080"
+    depends_on:
+      - mssqlserver    
+  mssqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1*
+    ports:
+      - "1433:1433"
